@@ -1,11 +1,9 @@
-FROM alpine:latest
+FROM ubuntu
 
 MAINTAINER  Mason Adam <masontadam@gmail.com>
 
-RUN apk add --no-cache \
-  openssh \
-  git && \
-  RUN useradd -d /home/admin -ms /bin/bash -g root -G sudo -p empiredidnothingwrong admin
-  
+RUN apt-get update && apt-get install -y openssh-client && apt-get install -y git
 
+RUN useradd -d /home/admin -ms /bin/bash -g root -G sudo -p empiredidnothingwrong admin
+  
 EXPOSE 22

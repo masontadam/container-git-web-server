@@ -50,5 +50,6 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 EXPOSE 22
 EXPOSE 443
 
-CMD ["/usr/sbin/sshd","-D"]
+ENTRYOINT["bootstrap.sh"]
+#CMD ["/usr/sbin/sshd","-D"]
 

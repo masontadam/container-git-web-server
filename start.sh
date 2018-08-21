@@ -8,14 +8,14 @@ sudo apt-get update && sudo apt-get install -y git && sudo apt-get install -y do
 # cp -r ~/.ssh .
 
 # Spin up Git Server
-sudo docker build -t dev-env . 
+sudo docker build -t dev-env2 . 
 #sudo docker run -dit server
 sudo docker run -dit --name=server \
 	-v $(pwd)/git_docs/:/tmp/git_docs/ \
 	-v $(pwd)/server_docs/:/www/web/ \
 	-v ~/.ssh:/home/admin/.ssh \
 	-v $(echo "$SSH_AUTH_SOCK"):$(echo "$SSH_AUTH_SOCK") \
-	-e SSH_AUTH_SOCK=$(echo "$SSH_AUTH_SOCK") dev-env
+	-e SSH_AUTH_SOCK=$(echo "$SSH_AUTH_SOCK") dev-env2
 
 
 DOCKER_IP="$(sudo docker inspect --format '{{ .NetworkSettings.IPAddress }}' server)"

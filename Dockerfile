@@ -1,12 +1,13 @@
-# RUN useradd -d /home/admin -ms /bin/bash -g root -G sudo -p empiredidnothingwrong admin
-  
-
 FROM ubuntu:16.04
 
 MAINTAINER Mason Adam <masontadam@gmail.com>
 
+#ARG ssh_prv_key="$(cat ~/.ssh/id_rsa)"
+#ARG ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)"
+
 RUN apt-get update && apt-get install -y openssh-server \
-	&& apt-get install -y git-core
+	&& apt-get install -y git-core \
+	&& apt-get install python3.6
 
 # For debugging in development
 RUN apt-get install -y vim
@@ -18,6 +19,16 @@ RUN echo 'root:empiredidnothingwrong' | chpasswd
 RUN groupadd admin
 RUN useradd -d /home/admin -ms /bin/bash -g admin -G admin admin
 RUN echo 'admin:empiredidnothingwrong' | chpasswd
+
+# Authorize SSH Host
+RUN mkdir -p /admin/.ssh && \
+    chmod 0700 /admin/.ssh && \
+
+# Add the keys and set permissions
+COPY .ssh/id_rsa /admin/.ssh/id_rsa
+COPY .ssh/id_rsa.pub /admin/.ssh/id_rsa.pub 
+RUN chmod 600 /admin/.ssh/id_rsa && \
+    chmod 600 /admin/.ssh/id_rsa.pub
 
 #Setup Git Repo
 RUN mkdir -p /admin/admin/

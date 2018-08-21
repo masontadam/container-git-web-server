@@ -11,6 +11,8 @@ cp -r ~/.ssh .
 sudo docker build -t git-server2 . 
 #sudo docker run -dit server
 sudo docker run -dit --name=git-server \
+	-v git-docs:/tmp/ \
+	-v server-docs:/www/web \
 	-v ~/.ssh:/home/admin/.ssh \
 	-v $(echo "$SSH_AUTH_SOCK"):$(echo "$SSH_AUTH_SOCK") \
 	-e SSH_AUTH_SOCK=$(echo "$SSH_AUTH_SOCK") git-server2

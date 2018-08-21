@@ -1,6 +1,6 @@
 #!/bin/bash
-TRAGET="/home/webuser/deploy-folder"
-GIT_DIR="/home/webuser/www.git"
+TARGET="/www/web/"
+GIT_DIR="/admin/admin"
 BRANCH="master"
 
 while read oldrev newrev ref
@@ -9,7 +9,7 @@ do
 	if [[ $ref = refs/heads/$BRANCH ]];
 	then
 		echo "Ref $ref received. Deploying ${BRANCH} branch to production..."
-		git --work-tree=$TRAGET --git-dir=$GIT_DIR checkout -f
+		git --work-tree=$TARGET --git-dir=$GIT_DIR checkout -f
 	else
 		echo "Ref $ref received. Doing nothing: only the ${BRANCH} branch may be deployed on this server."
 	fi

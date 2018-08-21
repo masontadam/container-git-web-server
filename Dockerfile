@@ -2,15 +2,11 @@ FROM ubuntu:16.04
 
 MAINTAINER Mason Adam <masontadam@gmail.com>
 
-#ARG ssh_prv_key="$(cat ~/.ssh/id_rsa)"
-#ARG ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)"
-
 RUN apt-get update && apt-get install -y openssh-server \
 	&& apt-get install -y git-core \
-	&& apt-get install python3.6
-
-# For debugging in development
-RUN apt-get install -y vim
+	&& apt-get install -y python3.6 \
+	&& apt-get install -y python-pip \
+	&&  apt-get install -y vim
 
 #Setup SSH
 RUN mkdir /var/run/sshd
@@ -33,7 +29,12 @@ RUN chmod 600 /admin/.ssh/id_rsa && \
 #Setup Git Repo
 RUN mkdir -p /admin/admin/
 RUN cd /admin/admin && git init --bare
+COPY /tmp/git-docs/post-recieve.sh /admin/admin/hooks/
 RUN chown -R admin:admin /admin
+
+# Setup Webserver
+RUN mkdir -p /www/web/
+RUN chown -R admin:admin /www/
 
 RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 

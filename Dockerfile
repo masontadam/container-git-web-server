@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y openssh-server \
 	&& apt-get install -y python \
 	&& apt-get install -y python-pip
 
-RUN pip install --upgrade pip && pip install Flask
+RUN python -m pip install --upgrade pip && pip install Flask
 
 #Setup SSH
 RUN mkdir /var/run/sshd
@@ -19,14 +19,14 @@ RUN useradd -d /home/admin -ms /bin/bash -g admin -G admin admin
 RUN echo 'admin:empiredidnothingwrong' | chpasswd
 
 # Authorize SSH Keys
-# RUN mkdir -p /admin/.ssh && \
-#    chmod 0700 /admin/.ssh && \
+# RUN mkdir -p /home/admin/.ssh && \
+#    chmod 700 /home/admin/.ssh && \
 
 # Add the keys and set permissions
-# COPY .ssh/id_rsa /admin/.ssh/id_rsa
-# COPY .ssh/id_rsa.pub /admin/.ssh/id_rsa.pub 
-# RUN chmod 600 /admin/.ssh/id_rsa && \
-#     chmod 600 /admin/.ssh/id_rsa.pub
+# COPY .ssh/id_rsa /home/admin/.ssh/id_rsa
+# RUN cat .ssh/id_rsa.pub >> /home/admin/.ssh/authorized_keys 
+# RUN chmod 600 /home/admin/.ssh/id_rsa && \
+#     chmod 600 /home/admin/.ssh/authorized_keys
 
 # Setup Git Repository & Permissions
 RUN mkdir -p /admin/admin/
@@ -50,6 +50,7 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 EXPOSE 22
 EXPOSE 443
 
-ENTRYOINT["bootstrap.sh"]
-#CMD ["/usr/sbin/sshd","-D"]
-
+COPY ./bootstrap.sh /
+ENTRYPOINT ["/bootstrap.sh"]
+#CMD ssh-keygen -q -t rsa -N '' -f /keys/id_rsa
+CMD ["/usr/sbin/sshd", "-D"]

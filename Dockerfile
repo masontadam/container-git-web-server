@@ -6,7 +6,8 @@ RUN apt-get update && apt-get install -y openssh-server \
 	&& apt-get install -y git-core \
 	&& apt-get install -y python3.6 \
 	&& apt-get install -y python-pip \
-	&&  apt-get install -y vim
+	&& apt-get install -y vim \
+	&& apt-get install -y openssl 
 
 #Setup SSH
 RUN mkdir /var/run/sshd
@@ -45,4 +46,6 @@ ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 
 EXPOSE 22
+EXPOSE 443
 CMD ["/usr/sbin/sshd", "-D"]
+CMD ["python", "/www/web/server.py"]

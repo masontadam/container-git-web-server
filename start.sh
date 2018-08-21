@@ -22,7 +22,7 @@ echo "${DOCKER_IP}"
 # Create local repo and push to server
 mkdir admin
 cd admin && git init
-cd ../ && cp -r git_docs/. admin
+cd ../ && cp git_docs/test-script.sh admin
 cd admin && git add .
 git commit -m "test message" -a
 git remote add origin ssh://admin@"${DOCKER_IP}"/admin/admin

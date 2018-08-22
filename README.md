@@ -4,12 +4,15 @@
 
 ## Description
 
-This is an incomplete project aimed at created a development environmet meeting the following requirements:
+This project is a dockerized environment for dynamic development. It has a git-server and simple web-server in an Ubuntu 16.04 Docker container. 
+
+List of Requirements:
 - Utilizes containerization or virtualization software
 - contains a git server that serves over port 22 
 - contains a web server that servrs over port 443
 - All web traffic must be SSL using a self-signed cert
 - Set any passwords to “empiredidnothingwrong”
+- Web server serves result of scripts in the master branch of the git repository
 
 ## Dependencies
 

@@ -22,13 +22,15 @@ This project is tested on Ubuntu 14.04. The only dependencies are:
 1. The environment is very simple to setup, though incomplete. Simple pull this repository, and run `./setup.sh`.
 
 	- This will build and instantiate a docker container that holds both the git and web server. 
+	- The script will ask your permission to connect over ssh if you have the `StrictHostKeyChecking` flag in your ssh_config set to `ask`. Change it to `no` to fix this.
 
 2. Then the git repository will be available over port 22 at the docker container's docker network IP address. This server interact in the way a normal git repository would:
 
 The only repository intially present on the server is admin/admin (password in the description).
 
 The docker container's IP address can be found with the following command:
-	- `sudo docker inspect --format '{{ .NetworkSettings.IPAddress }}' server` where 'server' is merely the name of the docker container.
+
+- `sudo docker inspect --format '{{ .NetworkSettings.IPAddress }}' server` where 'server' is merely the name of the docker container.
 
 ```
 git clone ssh://admin@172.17.0.2/admin/admin

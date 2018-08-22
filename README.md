@@ -63,3 +63,5 @@ The web server was intended to be a simple flask application coded in python. Th
 - `https://gist.github.com/noelboss/3fe13927025b89757f8fb12e9066f2fa#file-post-receive`
 - `https://stackoverflow.com/questions/18136389/using-ssh-keys-inside-docker-container`
 - `http://networkstatic.net/10-examples-of-how-to-get-docker-container-ip-address/`
+- `https://medium.freecodecamp.org/docker-entrypoint-cmd-dockerfile-best-practices-abc591c30e21`
+- `https://www.digitalocean.com/community/tutorials/how-to-use-git-hooks-to-automate-development-and-deployment-tasks`

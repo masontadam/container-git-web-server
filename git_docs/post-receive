@@ -1,5 +1,5 @@
 #!/bin/bash
-TARGET="/www/web/"
+TARGET="/www/web/scripts/"
 GIT_DIR="/admin/admin"
 BRANCH="master"
 

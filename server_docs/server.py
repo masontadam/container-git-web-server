@@ -1,20 +1,25 @@
-from flask import Flask 
+from flask import Flask, render_template 
 import os
 import subprocess
 
 
 app = Flask(__name__)
 
+def run_scripts():
+	result = ""
+	for filename in os.listdir('/www/web/scripts/'):
+		out = subprocess.Popen(["/bin/sh", "-c", '/www/web/scripts/' + filename], 
+           		stdout=subprocess.PIPE, 
+           		stderr=subprocess.STDOUT)
+		stdout,stderr = out.communicate()
+		result += stdout
+		result += '\n'
+	return result
 
 @app.route('/')
 def index():
-    for filename in os.listdir('/www/web/scripts/'):
-    	if filename.endswith(".sh"):
-		File = "./" + filename
-		subprocess.call([File]) > results.txt
-
-    return render_template('/www/web/templates/index.html', output='/www/web/scripts/results.txt')
-
+	result = run_scripts()
+	return render_template('index.html', output = result)
 
 if __name__ == '__main__':  
      app.run(host='0.0.0.0', port=443, debug=True, ssl_context=('/www/web/ssl/server.crt', '/www/web/ssl/server.key'))

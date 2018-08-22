@@ -1,10 +1,8 @@
 #!/bin/bash
 
-echo "testing" > /home/admin/test.txt
+cp /tmp/git_docs/post-receive /admin/admin/hooks/
 
-cp /tmp/git_docs/post_recieve.sh /admin/admin/hooks/
-
-echo "TETTETESTGERGNREJOWN" > /home/admin/test.txt
+echo "test" > /home/admin/test.txt
 
 python /www/web/server.py &
 

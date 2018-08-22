@@ -34,6 +34,7 @@ The only repository intially present on the server is admin/admin (password in t
 The docker container's IP address can be found with the following command:
 
 - `sudo docker inspect --format '{{ .NetworkSettings.IPAddress }}' server` where 'server' is merely the name of the docker container.
+- The git server behaves as normal over port 22. Below is a sample of common git commands (note the address of the git server):
 
 ```
 git clone ssh://admin@172.17.0.2/admin/admin
@@ -42,7 +43,7 @@ git commit -m "test"
 git push origin master
 ```
 
-3. A user can push testing scripts to the admin/admin repository and they will be served by the webserver at `https://<Container IP>:443`. 
+3. A user can push bash scripts to the admin/admin repository and their results will be served at `https://<Container IP>:443`. 
 
 ## Design
 

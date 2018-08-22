@@ -37,25 +37,38 @@ git commit -m "test"
 git push origin master
 ```
 
-3. A user can push testing scripts to the admin/admin repository and they will be served by the webserver at `https://localhost:443`. 
+3. A user can push testing scripts to the admin/admin repository and they will be served by the webserver at `https://<Container IP>:443`. 
 
 ## Design
 
+### Docker Container Directory Layout
+
+```
+/admin # Git User
+    /admin # Repository
+        #git objects
+/www
+    /web
+        server.py # The flask application
+        /scripts
+            # location of user scripts
+        /templates
+            index.html
+        /ssl
+            server.crt
+            server.key
+```
+
 ### Git Server
 
-The git server runs on top of an sshd server. I shared the `SSH_AUTH_SOCK` environment variable in order to allow port 22 usage on the docker container, while allowing the host system to still utiliize that port otherwise. The git server itself is very simple. It merely required a `git init` and a user:password to authenticate. The use of git hooks was planned in order to dynamically update the web server on pushes to master. The git hook would then copy the files in master to the web root directory for the web server to handle. 
+The git server runs on top of an sshd server. I shared the `SSH_AUTH_SOCK` environment variable in order to allow port 22 usage on the docker container, while allowing the host system to still utiliize that port otherwise. The start script creates an ssh key and copies it to the docker container to allow 'passwordless' authentication. When the user pushes to the remote, the server's post-receive hook auto-updates the web root directory with the new contents of the master branch. 
 
 ### Web Server
 
-The web server was intended to be a simple flask application coded in python. The python application would simply run any scripts it viewed in its web root directory and display the results to the browser. 
+The web server can be reached at the docker container's IP over port 443, utilizing a self-signed cert by yours truly. The server is a simple flask app that runs all `.sh` scripts that the `server.py` file finds in the `scripts` directory. It then renders the `index.html` template with the script results as dynamic content.
 
-## TODO 
 
-- [ ] Functional Git Hook Script
-- [ ] Copy Git Hook Script to `/admin/admin/hooks` on startup witout disrupting ssh
-- [ ] Create functional flask app that displays html results of shell scripts in a directory
-
-## References 
+# References
 
 - `https://docs.docker.com/engine/examples/running_ssh_service/#run-a-test_sshd-container`
 - `https://www.linux.com/learn/how-run-your-own-git-server`

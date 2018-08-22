@@ -22,7 +22,7 @@ This project is tested on Ubuntu 14.04. The only dependencies are:
 
 ## Usage
 
-1. Run `./setup.sh`
+1. Run `./start.sh`
 
 	- This will build and instantiate a docker container that holds both the git and web server. 
 	- The script will ask your permission to connect over ssh if you have the `StrictHostKeyChecking` flag in your ssh_config set to `ask`. Change it to `no` to fix this.

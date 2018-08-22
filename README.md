@@ -46,6 +46,14 @@ git push origin master
 
 	- `https://<Container IP>:443`
 
+## Troubleshooting
+
+If docker gives an error about volume ':' being invalid, you may need to export your SSH_AUTH_SOCK to an environment varible. Steps to complete this:
+	- `eval $(ssh-agent -s| head -n 1)`
+	- Run `echo $SSH_AUTH_SOCK` to ensure the environment variable is set. 
+
+Once this is done, the docker run command will mount the volumes correctly.
+
 ## Design
 
 ### Docker Container Directory Layout

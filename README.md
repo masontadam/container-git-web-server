@@ -29,12 +29,11 @@ This project is tested on Ubuntu 14.04. The only dependencies are:
 
 2. Then the git repository will be available over port 22 at the docker container's docker network IP address. This server interact in the way a normal git repository would:
 
-The only repository intially present on the server is admin/admin (password in the description).
+	- The only repository intially present on the server is admin/admin (password in the description).
+	- The docker container's IP address can be found with the following command:
+		- `sudo docker inspect --format '{{ .NetworkSettings.IPAddress }}' server` where 'server' is merely the name of the docker container.
 
-The docker container's IP address can be found with the following command:
-
-- `sudo docker inspect --format '{{ .NetworkSettings.IPAddress }}' server` where 'server' is merely the name of the docker container.
-- The git server behaves as normal over port 22. Below is a sample of common git commands (note the address of the git server):
+Below is a sample of common git commands (note the address of the git server):
 
 ```
 git clone ssh://admin@172.17.0.2/admin/admin
@@ -43,9 +42,9 @@ git commit -m "test"
 git push origin master
 ```
 
-3. A user can push bash scripts to the admin/admin repository and their results will be served at:
+3. A test script is already present in the web server `scripts` directory. A user can push additional bash scripts to the admin/admin repository and their results will be served at:
 
-- `https://<Container IP>:443`
+	- `https://<Container IP>:443`
 
 ## Design
 

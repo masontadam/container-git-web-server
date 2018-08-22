@@ -1,3 +1,3 @@
 #!/bin/bash
 
-echo "Hello, I am a test script"
+echo "Hello, I am a test script."

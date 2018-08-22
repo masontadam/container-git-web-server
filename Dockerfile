@@ -18,16 +18,6 @@ RUN groupadd admin
 RUN useradd -d /home/admin -ms /bin/bash -g admin -G admin admin
 RUN echo 'admin:empiredidnothingwrong' | chpasswd
 
-# Authorize SSH Keys
-# RUN mkdir -p /home/admin/.ssh && \
-#    chmod 700 /home/admin/.ssh && \
-
-# Add the keys and set permissions
-# COPY .ssh/id_rsa /home/admin/.ssh/id_rsa
-# RUN cat .ssh/id_rsa.pub >> /home/admin/.ssh/authorized_keys 
-# RUN chmod 600 /home/admin/.ssh/id_rsa && \
-#     chmod 600 /home/admin/.ssh/authorized_keys
-
 # Setup Git Repository & Permissions
 RUN mkdir -p /admin/admin/
 RUN cd /admin/admin && git init --bare
@@ -52,5 +42,4 @@ EXPOSE 443
 
 COPY ./bootstrap.sh /
 ENTRYPOINT ["/bootstrap.sh"]
-#CMD ssh-keygen -q -t rsa -N '' -f /keys/id_rsa
 CMD ["/usr/sbin/sshd", "-D"]

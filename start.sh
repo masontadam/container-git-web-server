@@ -11,7 +11,6 @@ cp ~/.ssh/id_rsa.pub docker_ssh/authorized_keys
 
 # Spin up Git Server
 sudo docker build -t dev-env3 . 
-#sudo docker run -dit server
 sudo docker run -dit --name=server \
 	-v $(pwd)/git_docs/:/tmp/git_docs/ \
 	-v $(pwd)/server_docs/:/www/web/ \
@@ -20,9 +19,6 @@ sudo docker run -dit --name=server \
 	-e SSH_AUTH_SOCK=$(echo "$SSH_AUTH_SOCK") dev-env3
 
 DOCKER_IP="$(sudo docker inspect --format '{{ .NetworkSettings.IPAddress }}' server)"
-
-# For Debugging Purposes
-#echo "${DOCKER_IP}"
 
 # Create local repo and push to server
 mkdir admin

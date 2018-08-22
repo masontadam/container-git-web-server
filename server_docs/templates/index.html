@@ -7,8 +7,9 @@
         <h1 class="text-gray">Shell Script Server</h1>
     </header>
 
-<p value="{{output}}">{{output}}</p>
-
+{% for output in outputs %}
+	<p value="{{output}}">{{output}}</p>
+{% endfor %}
 </body>
 
 </html>

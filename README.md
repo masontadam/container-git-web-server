@@ -43,7 +43,9 @@ git commit -m "test"
 git push origin master
 ```
 
-3. A user can push bash scripts to the admin/admin repository and their results will be served at `https://<Container IP>:443`. 
+3. A user can push bash scripts to the admin/admin repository and their results will be served at:
+
+- `https://<Container IP>:443`
 
 ## Design
 

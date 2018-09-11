@@ -24,7 +24,7 @@ This project is tested on Ubuntu 14.04. The only dependencies are:
 
 ## Usage
 
-![alt text](lol/lol Design Diagram Slide.png)
+![alt text](lol Design Diagram Slide.png)
 
 1. Run `./start.sh`
 

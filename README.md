@@ -6,13 +6,15 @@
 
 This project is a dockerized environment for dynamic development. It has a git-server and simple web-server in an Ubuntu 16.04 Docker container. 
 
-List of Requirements:
-- Utilizes containerization or virtualization software
-- contains a git server that serves over port 22 
-- contains a web server that servrs over port 443
-- All web traffic must be SSL using a self-signed cert
-- Set any passwords to “empiredidnothingwrong”
-- Web server serves result of scripts in the master branch of the git repository
+This project deploys a docker container that serves the results of scripts placed in a git repository over SSL (port 443). Currently, the web server is a Python Flask application that returns the results of Bash scripts in the web root directory. This could easily be expanded to other use cases. This simple design is merely a proof of concept. 
+
+### Ports 
+
+The Docker's git server is served over port 22. The Web Server is served over port 443. All web traffic is SSL using a self-signed certificate.
+
+### Passwords 
+
+Any passwords that a user encounters are `empiredidnothingwrong`
 
 ## Dependencies
 
@@ -83,7 +85,7 @@ The git server runs on top of an sshd server. I shared the `SSH_AUTH_SOCK` envir
 The web server can be reached at the docker container's IP over port 443, utilizing a self-signed cert by yours truly. The server is a simple flask app that runs all `.sh` scripts that the `server.py` file finds in the `scripts` directory. It then renders the `index.html` template with the script results as dynamic content.
 
 
-# References
+# List of References
 
 - `https://docs.docker.com/engine/examples/running_ssh_service/#run-a-test_sshd-container`
 - `https://www.linux.com/learn/how-run-your-own-git-server`
